@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Recording } from '../types';
-import { Search, Clock, Plus, ChevronRight, CheckSquare, MessageSquare } from 'lucide-react';
+import { Search, Clock, Plus, ChevronRight, CheckSquare, MessageSquare, Settings } from 'lucide-react';
 import { formatDuration } from '../utils/audioUtils';
 
 interface SidebarProps {
@@ -8,11 +8,12 @@ interface SidebarProps {
   onSelect: (id: string) => void;
   selectedId: string | null;
   onNew: () => void;
+  onOpenSettings?: () => void;
 }
 
 type Tab = 'notes' | 'tasks';
 
-export const Sidebar: React.FC<SidebarProps> = ({ recordings, onSelect, selectedId, onNew }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ recordings, onSelect, selectedId, onNew, onOpenSettings }) => {
   const [activeTab, setActiveTab] = useState<Tab>('notes');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -176,6 +177,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ recordings, onSelect, selected
             <p className="text-sm font-medium text-slate-900 truncate">Alex Sales</p>
             <p className="text-xs text-slate-500 truncate">Premium Plan</p>
           </div>
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+              title="Settings"
+            >
+              <Settings className="w-4 h-4" />
+            </button>
+          )}
         </div>
       </div>
     </div>

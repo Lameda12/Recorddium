@@ -1,12 +1,20 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { NoteData } from "../types";
+import { getApiKey } from "../utils/apiKeyStorage";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+const getAiInstance = () => {
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    throw new Error("Gemini API key is not set. Please configure it in settings.");
+  }
+  return new GoogleGenAI({ apiKey });
+};
 
 const MODEL_NAME = "gemini-2.5-flash";
 
 export const processAudioRecording = async (base64Audio: string, mimeType: string): Promise<NoteData> => {
   try {
+    const ai = getAiInstance();
     const response = await ai.models.generateContent({
       model: MODEL_NAME,
       contents: {
