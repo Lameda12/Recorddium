@@ -1,0 +1,7 @@
+{
+  "name": "Recordium",
+  "description": "AI-powered note-taking app for sales professionals. Records audio, transcribes it, and generates actionable summaries using Gemini 2.5 Flash.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
